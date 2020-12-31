@@ -45,4 +45,36 @@ The purpose of this document is to provide a set of step-by-step instructions to
 ![RPI-Imager-03](./images/rpi-imager-03.png)
 
 7. Select your SD card from the dropdown.
+
+![RPI-Imager-04](./images/rpi-imager-04.png)
+
 8. Click the "Write" button.
+
+9. Once the Imager has completed writing OS to the MicroSD card it will automatically unmount the card. Remove the card from the reader and reinsert it. Two drives will appear. One called BOOT and one called ROOT.
+
+10. Mount the drive called BOOT using whatever method your OS requires.
+
+11. Open the drive with the file manager and create an empty file called `ssh`.
+
+12. If you are going to connect via Ethernet, skip the next step.
+
+13. To connect via Wifi, create a file called `wpa_supplicant.conf` and copy the following lines into it:
+
+```
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+ssid="YOURSSID"
+scan_ssid=1
+psk="YOURPASSWORD"
+key_mgmt=WPA-PSK
+}
+```
+Replace "YOURSSID" and "YOURPASSWORD" with the appropriate information for your wireless network.
+
+14. Save the file making sure that the name remains `wpa_supplicant.conf`.
+
+15. Unmount the BOOT disk and eject the Micro SD card.
+
+16. Insert the MicroSD card into the Raspberry Pi and boot the device.
